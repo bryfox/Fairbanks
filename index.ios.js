@@ -4,50 +4,19 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import Fairbanks from './src/containers/home';
+import { Navigation } from 'react-native-navigation';
 
-export default class Fairbanks extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
-    );
-  }
-}
+import registerScreens from './src/screens';
+registerScreens()
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+Navigation.startSingleScreenApp({
+  screen: {
+    screen: 'fairbanks.Home', // unique ID registered with Navigation.registerScreen
+    title: 'Today’s Forecast', // title of the screen as appears in the nav bar (optional)
+    navigatorStyle: {}, // override the navigator style for the screen, see "Styling the navigator" below (optional)
+    navigatorButtons: {} // override the nav buttons for the screen, see "Adding buttons to the navigator" below (optional)
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  passProps: {}, // simple serializable object that will pass as props to all top screens (optional)
+  animationType: 'none' // optional, add transition animation to root change: 'none', 'slide-down', 'fade'
 });
-
-AppRegistry.registerComponent('Fairbanks', () => Fairbanks);

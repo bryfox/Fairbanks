@@ -8,6 +8,8 @@
  */
 
 #import "AppDelegate.h"
+#import "RCCManager.h"
+//#import <ReactNative/RCCManager.h>
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
@@ -26,7 +28,14 @@
                                                    launchOptions:launchOptions];
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
 
+
+
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+
+  // Added per https://github.com/wix/react-native-navigation/blob/master/example/ios/example/AppDelegate.m
+  self.window.backgroundColor = [UIColor whiteColor];
+  [[RCCManager sharedInstance] initBridgeWithBundleURL:jsCodeLocation launchOptions:launchOptions];
+
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
