@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Text,
   WebView,
   View
 } from 'react-native'
 
 import Header from '../presentation/header'
+import Colors from '../mixins/colors'
 
 export default class AudioPlayer extends PureComponent {
   render () {
@@ -28,13 +28,10 @@ export default class AudioPlayer extends PureComponent {
   }
 }
 
-
-const IOS_BLUE = '007aff'
-
 function iframeSrc(soundcloudId) {
   if (soundcloudId) {
     return `https://w.soundcloud.com/player/?visual=false&url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F\
-${soundcloudId}&show_artwork=false&show_comments=false&color=${IOS_BLUE}`
+${soundcloudId}&show_artwork=false&show_comments=false&color=${Colors.nativeBlue}`
   }
 }
 
@@ -46,4 +43,3 @@ function onLoad() { console.log("onLoad") }
 function onLoadEnd() { console.log("onLoadEnd") }
 function onLoadStart() { console.log("onLoadStart") }
 function onError() { console.log("onError") }
-

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import CustomPropTypes from '../mixins/prop_types'
 import { View, Text } from 'react-native'
 
 export default class Header extends Component {
@@ -12,5 +13,5 @@ export default class Header extends Component {
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  style: PropTypes.oneOfType(PropTypes.object, PropTypes.array),
+  style: CustomPropTypes.styleProp,
 }

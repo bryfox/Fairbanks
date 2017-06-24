@@ -1,22 +1,23 @@
 import React, { Component } from 'react'
 import { StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
+import CustomPropTypes from '../mixins/prop_types'
 import Header from './header'
 
 export default class DateHeader extends Component {
   get isToday () {
+    let title = this.props.title
     try {
-      let title = this.props.title
-      return title && equalDates(date(title), new Date()) && !title.match(/night/)
+      return title && equalDates(date(title), new Date()) && !title.match(/night/i)
     } catch (e) {
       return false
     }
   }
 
   get isTonight () {
+    let title = this.props.title
     try {
-      let title = this.props.title
-      return title && equalDates(date(title), new Date()) && title.match(/night/)
+      return title && equalDates(date(title), new Date()) && title.match(/night/i)
     } catch (e) {
       return false
     }
@@ -42,7 +43,7 @@ export default class DateHeader extends Component {
 function date(dateDisplay) {
   // If EDT, that's OK; err on this side
   let easternTime = " 00:00:00-0500"
-  return new Date(dateDisplay.replace('night', '') + easternTime)
+  return new Date(dateDisplay.replace(/night/i, '') + easternTime)
 }
 
 function equalDates (d1, d2) {
@@ -62,5 +63,5 @@ const Styles = StyleSheet.create({
 
 DateHeader.propTypes = {
   title: PropTypes.string,
-  style: PropTypes.oneOfType(PropTypes.object, PropTypes.array),
+  style: CustomPropTypes.styleProp,
 }

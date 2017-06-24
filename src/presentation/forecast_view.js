@@ -6,7 +6,7 @@ import {
   Text,
   ScrollView,
   View,
-  SectionList
+  SectionList,
 } from 'react-native'
 
 import DateHeader from '../presentation/date_header'
@@ -26,11 +26,11 @@ export default class ForecastView extends Component {
   render () {
     return (
       <ScrollView contentContainerStyle={Styles.container}>
-        <View>
+        <View style={Styles.firstForecast}>
           <SectionList
             scrollEnabled={false}
             renderItem={({item}) => <Text style={Styles.summary}>{item.description}</Text> }
-            renderSectionHeader={({section}) => <DateHeader title={section.title} style={Styles.light} />}
+            renderSectionHeader={({section}) => <DateHeader title={section.title} style={Styles.header} />}
             sections={this.props.details.slice(0,1)}
           />
         </View>
@@ -41,10 +41,6 @@ export default class ForecastView extends Component {
   }
 }
 
-function todo () {
-
-}
-
 const Styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -53,14 +49,20 @@ const Styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: '#fff',
     margin: 10,
-    marginTop: 30,
   },
-  light: {
-    color: '#eee'
+  firstForecast: {
+    marginBottom: 20,
+    marginTop: 20,
+  },
+  header: {
+    color: '#eee',
+    fontSize: 36,
+    lineHeight: 24,
+    paddingTop: 36 - 24
   },
   summary: {
-    fontSize: 24,
     fontFamily: 'EBGaramond',
+    fontSize: 24,
     lineHeight: 26,
   },
 })

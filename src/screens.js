@@ -1,10 +1,10 @@
 import { Navigation } from 'react-native-navigation'
-import Home from './containers/home'
+import Fairbanks from './containers/fairbanks'
 import Extended from './presentation/forecast_view'
 import Recreational from './presentation/forecast_view'
 
 export default function () {
-    Navigation.registerComponent('fairbanks.Home', () => Home)
+    Navigation.registerComponent('Fairbanks', () => Fairbanks)
     Navigation.registerComponent('fairbanks.Extended', () => Extended)
     Navigation.registerComponent('fairbanks.Recreational', () => Recreational)
 }

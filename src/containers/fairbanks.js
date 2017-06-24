@@ -5,33 +5,48 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {
   StyleSheet,
+  ScrollView,
   View,
-  Button
+  Button,
+  Linking,
 } from 'react-native'
 
 import ForecastView from '../presentation/forecast_view'
+import ImageButton from '../presentation/image_button'
 
-export default class Home extends Component {
+export default class Fairbanks extends Component {
   constructor(props) {
     super(props)
     this.pushVC = this.pushVC.bind(this)
     this.pushExtended = this.pushExtended.bind(this)
     this.pushRecreational = this.pushRecreational.bind(this)
+    this.pushWeb = this.pushWeb.bind(this)
+    this.setForecastState = this.setForecastState.bind(this)
+
     this.state = this.state || EmptyState
+  }
+
+  // componentWillMount() {
+  //   // Hooks to UIKit view lifecycle
+  //   this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this))
+  // }
+
+  componentDidMount() {
     this.getData()
   }
 
+  // TODO: cancel xhr
+  // componentWillUnmount
+
   getData () {
-    if (this.state.forecastData) {
-      return
-    }
     headers = { 'Content-Type': 'application/json' }
     fetch("http://freyja.local:8888/api/v1/forecasts", {})
       .then(resp => resp.json())
       .then(json => json.data)
       .then(data => data[data.length - 1])
       .then(mapToForecasts)
-      .then(this.setForecastState.bind(this))
+      .then(this.setForecastState)
+      .then(() => console.info("set state complete"))
       .catch(console.error)
   }
 
@@ -41,6 +56,10 @@ export default class Home extends Component {
 
   pushExtended () { this.pushVC(Extended) }
   pushRecreational () { this.pushVC(Recreational) }
+  pushWeb () {
+    Linking.openURL(this.state.forecast.Today.uri)
+      .catch(err => console.error('An error occurred', err));
+  }
 
   pushVC(type) {
     this.props.navigator.push({
@@ -54,21 +73,34 @@ export default class Home extends Component {
   render() {
     return (
       <View style={{flex:1}}>
-        <ForecastView details={this.state.forecast.Today.details}
-                      soundcloudId={this.state.forecast.Today.soundcloudId}
-        />
+        <ScrollView>
+          <ForecastView
+                        details={this.state.forecast.Today.details}
+                        soundcloudId={this.state.forecast.Today.soundcloudId}
+          />
+        </ScrollView>
         <View style={Styles.buttonContainer}>
           <Button
             style={Styles.button}
             onPress={this.pushExtended}
             title="Extended"
             accessibilityLabel="Extended Forecast"
+            disabled={this.state.forecast.Extended.details.length == 0}
           />
           <Button
             style={Styles.button}
             onPress={this.pushRecreational}
             title="Recreational"
             accessibilityLabel="Recreational Forecast"
+            disabled={this.state.forecast.Recreational.details.length == 0}
+          />
+          <ImageButton
+            style={Styles.button}
+            onPress={this.pushWeb}
+            image="export"
+            size={ButtonHeight}
+            accessibilityLabel="Web Version"
+            disabled={!this.state.forecast.Today.uri}
           />
         </View>
       </View>
@@ -79,13 +111,18 @@ export default class Home extends Component {
 const Extended = "Extended"
 const Recreational = "Recreational"
 
+const EmptyForecast = {
+  details: []
+}
 const EmptyState = {
   forecast: {
-      Today: { details: [] },
-      Extended: { details: [] },
-      Recreational: { details: [] }
+      Today: EmptyForecast,
+      Extended: EmptyForecast,
+      Recreational: EmptyForecast
     }
 }
+
+const ButtonHeight = 24 + 8 + 8
 
 const Styles = StyleSheet.create({
   container: {
@@ -93,41 +130,46 @@ const Styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    height: 24 + 8 + 8,
+    height: ButtonHeight,
     justifyContent: 'space-between',
   },
   button: {
   }
 })
 
-Home.propTypes = {
+Fairbanks.propTypes = {
   navigator: PropTypes.object.isRequired
 }
 
 function mapToForecasts(apiResponse) {
-  return [
-    mapToTodaysForecast(apiResponse),
-    mapToExtendedForecast(apiResponse),
-    mapToRecreationalForecast(apiResponse)    
-  ]
+  if (apiResponse) {
+    return [
+      mapToTodaysForecast(apiResponse),
+      mapToExtendedForecast(apiResponse),
+      mapToRecreationalForecast(apiResponse)    
+    ]
+  } else {
+    return [EmptyForecast, EmptyForecast, EmptyForecast]
+  }
 }
 
 function mapToTodaysForecast(apiResponse) {
     return {
-      details: mapForecastToSections(apiResponse.detailed_summary.node),
-      soundcloudId: apiResponse.soundcloud_id
+      details: apiResponse.detailed_summary ? mapForecastToSections(apiResponse.detailed_summary.node) : [],
+      soundcloudId: apiResponse.soundcloud_id,
+      uri: apiResponse.uri
     }
 }
 
 function mapToExtendedForecast(apiResponse) {
     return {
-      details: mapForecastToSections(apiResponse.extended_summary.node)
+      details: apiResponse.extended_summary ? mapForecastToSections(apiResponse.extended_summary.node) : []
     }
 }
 
 function mapToRecreationalForecast(apiResponse) {
     return {
-      details: mapForecastToSections(apiResponse.recreational_summary.node)
+      details: apiResponse.recreational_summary ? mapForecastToSections(apiResponse.recreational_summary.node) : []
     }
 }
 
