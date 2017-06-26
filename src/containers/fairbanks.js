@@ -7,6 +7,7 @@ import {
   AppState,
   Button,
   Linking,
+  RefreshControl,
   ScrollView,
   StyleSheet,
   View,
@@ -18,9 +19,9 @@ import ImageButton from '../presentation/image_button'
 export default class Fairbanks extends Component {
   constructor(props) {
     super(props)
+    this.state = this.state || EmptyState
     let callbacks = ['pushVC', 'pushExtended', 'pushRecreational', 'pushWeb', 'setForecastState', 'onAppStateChange']
     bindCallbacks(callbacks, this)
-    this.state = this.state || EmptyState
   }
 
   componentDidMount () {
@@ -45,13 +46,14 @@ export default class Fairbanks extends Component {
   getData () {
     console.log('Fetching latest data from', ApiUrl)
     headers = { 'Content-Type': 'application/json' }
+    this.setState({refreshing: true})
     fetch(ApiUrl, {})
       .then(resp => resp.json())
       .then(json => json.data)
       .then(data => data[data.length - 1])
       .then(mapToForecasts)
       .then(this.setForecastState)
-      .then(() => console.info("set state complete"))
+      .then(() => this.setState({refreshing: false}))
       .catch(console.error)
   }
 
@@ -76,9 +78,11 @@ export default class Fairbanks extends Component {
   }
 
   render() {
+    let refresh = <RefreshControl refreshing={this.state.refreshing} onRefresh={this.getData.bind(this)}/>
+
     return (
       <View style={{flex:1}}>
-        <ScrollView>
+        <ScrollView refreshControl={refresh}>
           <ForecastView
                         details={this.state.forecast.Today.details}
                         soundcloudId={this.state.forecast.Today.soundcloudId}
@@ -125,6 +129,7 @@ const EmptyForecast = {
   details: []
 }
 const EmptyState = {
+  refreshing: false,
   forecast: {
       Today: EmptyForecast,
       Extended: EmptyForecast,
