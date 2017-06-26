@@ -31,7 +31,7 @@ export default class AudioPlayer extends PureComponent {
 function iframeSrc(soundcloudId) {
   if (soundcloudId) {
     return `https://w.soundcloud.com/player/?visual=false&url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F\
-${soundcloudId}&show_artwork=false&show_comments=false&color=${Colors.nativeBlue}`
+${soundcloudId}&show_artwork=false&show_comments=false&color=${Colors.NativeBlue.replace(/#/, '')}`
   }
 }
 

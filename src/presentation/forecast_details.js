@@ -12,7 +12,6 @@ import DateHeader from '../presentation/date_header'
 
 export default class ForecastDetails extends Component {
   render () {
-    console.log(this.props.details)
     return (
       <View style={Styles.container}>
         <SectionList

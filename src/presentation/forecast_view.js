@@ -51,11 +51,10 @@ const Styles = StyleSheet.create({
     margin: 10,
   },
   firstForecast: {
-    marginBottom: 20,
+    marginBottom: 10,
     marginTop: 20,
   },
   header: {
-    color: '#eee',
     fontSize: 36,
     lineHeight: 24,
     paddingTop: 36 - 24

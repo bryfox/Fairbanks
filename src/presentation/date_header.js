@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
-import CustomPropTypes from '../mixins/prop_types'
 import Header from './header'
+
+import Colors from '../mixins/colors'
+import CustomPropTypes from '../mixins/prop_types'
 
 export default class DateHeader extends Component {
   get isToday () {
@@ -54,7 +56,7 @@ function equalDates (d1, d2) {
 
 const Styles = StyleSheet.create({
   date: {
-    color: '#dedede',
+    color: Colors.DateHeader,
     fontFamily: 'Lobster',
     fontSize: 18,
     lineHeight: 24

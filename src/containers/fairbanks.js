@@ -4,11 +4,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {
-  StyleSheet,
-  ScrollView,
-  View,
+  AppState,
   Button,
   Linking,
+  ScrollView,
+  StyleSheet,
+  View,
 } from 'react-native'
 
 import ForecastView from '../presentation/forecast_view'
@@ -17,30 +18,34 @@ import ImageButton from '../presentation/image_button'
 export default class Fairbanks extends Component {
   constructor(props) {
     super(props)
-    this.pushVC = this.pushVC.bind(this)
-    this.pushExtended = this.pushExtended.bind(this)
-    this.pushRecreational = this.pushRecreational.bind(this)
-    this.pushWeb = this.pushWeb.bind(this)
-    this.setForecastState = this.setForecastState.bind(this)
-
+    let callbacks = ['pushVC', 'pushExtended', 'pushRecreational', 'pushWeb', 'setForecastState', 'onAppStateChange']
+    bindCallbacks(callbacks, this)
     this.state = this.state || EmptyState
   }
 
-  // componentWillMount() {
-  //   // Hooks to UIKit view lifecycle
-  //   this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this))
-  // }
-
-  componentDidMount() {
+  componentDidMount () {
+    AppState.addEventListener('change', this.onAppStateChange);
     this.getData()
+  }
+
+  componentWillUnmount () {
+    AppState.removeEventListener('change', this.onAppStateChange);
+  }
+
+  // Does not fire first time
+  onAppStateChange (newState) {
+    if (newState == AppStateActive) {
+      this.getData()
+    }
   }
 
   // TODO: cancel xhr
   // componentWillUnmount
 
   getData () {
+    console.log('Fetching latest data from', ApiUrl)
     headers = { 'Content-Type': 'application/json' }
-    fetch("http://freyja.local:8888/api/v1/forecasts", {})
+    fetch(ApiUrl, {})
       .then(resp => resp.json())
       .then(json => json.data)
       .then(data => data[data.length - 1])
@@ -107,6 +112,11 @@ export default class Fairbanks extends Component {
     )
   }
 }
+
+const ApiUrl = 'http://freyja.local:8888/api/v1/forecasts'
+
+// https://facebook.github.io/react-native/docs/appstate.html
+const AppStateActive = 'active'
 
 const Extended = "Extended"
 const Recreational = "Recreational"
@@ -188,4 +198,8 @@ function mapForecastToSections(nodeItems) {
     }
   })
   return sections
+}
+
+function bindCallbacks (callbacks, self) {
+  callbacks.forEach(name => self[name] = self[name].bind(self))
 }

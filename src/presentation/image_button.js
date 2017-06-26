@@ -27,7 +27,7 @@ export default class ImageButton extends Button {
     } = this.props
 
     let iconColor = Platform.select({
-      ios: "#" + (disabled ? 'dfdfdf' : Colors.nativeBlue),
+      ios: disabled ? '#dfdfdf' : Colors.NativeBlue,
       android: "#fff"
     })
 
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     ios: {},
     android: {
       elevation: 4,
-      backgroundColor: Colors.nativeBlue,
+      backgroundColor: Colors.NativeBlue,
       borderRadius: 2,
     },
   }),
