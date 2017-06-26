@@ -1,0 +1,311 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomeView renders links to other screens 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <RCTScrollView
+    refreshControl={
+      <RefreshControlMock
+        onRefresh={[Function]}
+        refreshing={false}
+      />
+    }
+  >
+    <RCTRefreshControl />
+    <View>
+      <RCTScrollView
+        contentContainerStyle={
+          Object {
+            "alignItems": "stretch",
+            "backgroundColor": "#fff",
+            "flex": 1,
+            "flexDirection": "column",
+            "justifyContent": "flex-start",
+            "margin": 10,
+          }
+        }
+      >
+        <View>
+          <View
+            style={
+              Object {
+                "marginBottom": 10,
+                "marginTop": 20,
+              }
+            }
+          >
+            <RCTScrollView
+              ItemSeparatorComponent={undefined}
+              data={Array []}
+              disableVirtualization={false}
+              getItem={[Function]}
+              getItemCount={[Function]}
+              horizontal={false}
+              initialNumToRender={10}
+              keyExtractor={[Function]}
+              maxToRenderPerBatch={10}
+              onContentSizeChange={[Function]}
+              onEndReachedThreshold={2}
+              onLayout={[Function]}
+              onMomentumScrollEnd={[Function]}
+              onScroll={[Function]}
+              onScrollBeginDrag={[Function]}
+              onScrollEndDrag={[Function]}
+              onViewableItemsChanged={undefined}
+              renderItem={[Function]}
+              renderScrollComponent={[Function]}
+              renderSectionHeader={[Function]}
+              scrollEnabled={false}
+              scrollEventThrottle={50}
+              sections={Array []}
+              stickyHeaderIndices={Array []}
+              stickySectionHeadersEnabled={true}
+              updateCellsBatchingPeriod={50}
+              windowSize={21}
+            >
+              <View />
+            </RCTScrollView>
+          </View>
+          <View
+            style={
+              Object {
+                "backgroundColor": "#ffffff",
+                "flex": 1,
+                "justifyContent": "center",
+              }
+            }
+          >
+            <RCTScrollView
+              ItemSeparatorComponent={undefined}
+              data={Array []}
+              disableVirtualization={false}
+              getItem={[Function]}
+              getItemCount={[Function]}
+              horizontal={false}
+              initialNumToRender={10}
+              keyExtractor={[Function]}
+              maxToRenderPerBatch={10}
+              onContentSizeChange={[Function]}
+              onEndReachedThreshold={2}
+              onLayout={[Function]}
+              onMomentumScrollEnd={[Function]}
+              onScroll={[Function]}
+              onScrollBeginDrag={[Function]}
+              onScrollEndDrag={[Function]}
+              onViewableItemsChanged={undefined}
+              renderItem={[Function]}
+              renderScrollComponent={[Function]}
+              renderSectionHeader={[Function]}
+              scrollEnabled={true}
+              scrollEventThrottle={50}
+              sections={Array []}
+              stickyHeaderIndices={Array []}
+              stickySectionHeadersEnabled={true}
+              updateCellsBatchingPeriod={50}
+              windowSize={21}
+            >
+              <View />
+            </RCTScrollView>
+          </View>
+        </View>
+      </RCTScrollView>
+    </View>
+  </RCTScrollView>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+        "height": 40,
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <View
+      accessibilityComponentType="button"
+      accessibilityLabel="Extended Forecast"
+      accessibilityTraits={
+        Array [
+          "button",
+          "disabled",
+        ]
+      }
+      accessible={true}
+      hitSlop={undefined}
+      isTVSelectable={true}
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
+      testID={undefined}
+      tvParallaxProperties={undefined}
+    >
+      <View
+        style={
+          Array [
+            Object {},
+            Object {},
+          ]
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          disabled={true}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "color": "#0C42FD",
+                "fontSize": 18,
+                "padding": 8,
+                "textAlign": "center",
+              },
+              Object {
+                "color": "#cdcdcd",
+              },
+            ]
+          }
+        >
+          Extended
+        </Text>
+      </View>
+    </View>
+    <View
+      accessibilityComponentType="button"
+      accessibilityLabel="Recreational Forecast"
+      accessibilityTraits={
+        Array [
+          "button",
+          "disabled",
+        ]
+      }
+      accessible={true}
+      hitSlop={undefined}
+      isTVSelectable={true}
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
+      testID={undefined}
+      tvParallaxProperties={undefined}
+    >
+      <View
+        style={
+          Array [
+            Object {},
+            Object {},
+          ]
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          disabled={true}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "color": "#0C42FD",
+                "fontSize": 18,
+                "padding": 8,
+                "textAlign": "center",
+              },
+              Object {
+                "color": "#cdcdcd",
+              },
+            ]
+          }
+        >
+          Recreational
+        </Text>
+      </View>
+    </View>
+    <View
+      accessibilityComponentType="button"
+      accessibilityLabel="Web Version"
+      accessibilityTraits={
+        Array [
+          "button",
+          "disabled",
+        ]
+      }
+      accessible={true}
+      hitSlop={undefined}
+      isTVSelectable={true}
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
+      testID={undefined}
+      tvParallaxProperties={undefined}
+    >
+      <View
+        style={
+          Array [
+            Object {},
+            Object {
+              "padding": 8,
+            },
+            Object {},
+          ]
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={false}
+          disabled={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "color": "#dfdfdf",
+                "fontSize": 24,
+              },
+              undefined,
+              Object {
+                "fontFamily": "Entypo",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+            ]
+          }
+        >
+          
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;

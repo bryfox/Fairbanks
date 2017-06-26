@@ -17,11 +17,13 @@ import {
   View,
 } from 'react-native'
 
+import ApiProvider from '../mixins/api_provider'
 import HomeView from '../presentation/home_view'
 
 export default class Fairbanks extends Component {
   constructor(props) {
     super(props)
+    this.apiProvider = new ApiProvider()
     this.state = this.state || EmptyState
     let callbacks = ['pushVC', 'pushExtended', 'pushRecreational', 'pushWeb', 'setForecastState', 'onAppStateChange']
     bindCallbacks(callbacks, this)
@@ -48,13 +50,8 @@ export default class Fairbanks extends Component {
 
   getData () {
     if (this.state.refreshing) { return }
-    console.log('Fetching latest data from', ApiUrl)
-    headers = { 'Content-Type': 'application/json' }
     this.setState({refreshing: true})
-    fetch(ApiUrl, {})
-      .then(resp => resp.json())
-      .then(json => json.data)
-      .then(data => data[data.length - 1])
+    this.apiProvider.getDailyUpdate()
       .then(mapToForecasts)
       .then(this.setForecastState)
       .then(() => this.setState({refreshing: false}))
@@ -92,8 +89,6 @@ export default class Fairbanks extends Component {
             />
   }
 }
-
-const ApiUrl = 'http://freyja.local:8888/api/v1/forecasts'
 
 // https://facebook.github.io/react-native/docs/appstate.html
 const AppStateActive = 'active'
