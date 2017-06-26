@@ -1,7 +1,7 @@
-import { Navigation } from 'react-native-navigation';
+import { Navigation } from 'react-native-navigation'
 
 import Colors from './mixins/colors'
-import registerScreens from './screens';
+import registerScreens from './screens'
 
 export default function startApp () {
   registerScreens()
@@ -14,5 +14,5 @@ export default function startApp () {
         navBarBackgroundColor: Colors.NavigationBackground
       }
     }
-  });
+  })
 }

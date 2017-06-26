@@ -46,5 +46,5 @@ const Styles = StyleSheet.create({
 })
 
 ForecastDetails.propTypes = {
-  details: CustomPropTypes.forecastDetailsProp,
+  details: PropTypes.arrayOf(CustomPropTypes.ForecastDetailsProp)
 }

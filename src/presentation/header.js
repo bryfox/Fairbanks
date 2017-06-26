@@ -13,5 +13,5 @@ export default class Header extends Component {
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  style: CustomPropTypes.styleProp,
+  style: CustomPropTypes.StyleProp,
 }

@@ -1,6 +1,10 @@
 /**
- * Fairbanks main screen
- */
+  Fairbanks main container.
+  Controls API integration and provides data to view hierarchy.
+
+  There are multiple forecast views in the app ("Today", "Extended", and "Recreational",
+  each with more than one section), but all data is fetched from a single API request.
+*/
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {
@@ -13,8 +17,7 @@ import {
   View,
 } from 'react-native'
 
-import ForecastView from '../presentation/forecast_view'
-import ImageButton from '../presentation/image_button'
+import HomeView from '../presentation/home_view'
 
 export default class Fairbanks extends Component {
   constructor(props) {
@@ -25,17 +28,17 @@ export default class Fairbanks extends Component {
   }
 
   componentDidMount () {
-    AppState.addEventListener('change', this.onAppStateChange);
+    AppState.addEventListener('change', this.onAppStateChange)
     this.getData()
   }
 
   componentWillUnmount () {
-    AppState.removeEventListener('change', this.onAppStateChange);
+    AppState.removeEventListener('change', this.onAppStateChange)
   }
 
   // Does not fire first time
   onAppStateChange (newState) {
-    if (newState == AppStateActive) {
+    if (newState === AppStateActive) {
       this.getData()
     }
   }
@@ -44,6 +47,7 @@ export default class Fairbanks extends Component {
   // componentWillUnmount
 
   getData () {
+    if (this.state.refreshing) { return }
     console.log('Fetching latest data from', ApiUrl)
     headers = { 'Content-Type': 'application/json' }
     this.setState({refreshing: true})
@@ -61,11 +65,11 @@ export default class Fairbanks extends Component {
     this.setState(prevState => ({ forecast: { Today: today, Extended: extended, Recreational: recreational }}))
   }
 
-  pushExtended () { this.pushVC(Extended) }
-  pushRecreational () { this.pushVC(Recreational) }
+  pushExtended () { this.pushVC("Extended") }
+  pushRecreational () { this.pushVC("Recreational") }
   pushWeb () {
     Linking.openURL(this.state.forecast.Today.uri)
-      .catch(err => console.error('An error occurred', err));
+      .catch(err => console.error('An error occurred', err))
   }
 
   pushVC(type) {
@@ -78,42 +82,14 @@ export default class Fairbanks extends Component {
   }
 
   render() {
-    let refresh = <RefreshControl refreshing={this.state.refreshing} onRefresh={this.getData.bind(this)}/>
-
-    return (
-      <View style={{flex:1}}>
-        <ScrollView refreshControl={refresh}>
-          <ForecastView
-                        details={this.state.forecast.Today.details}
-                        soundcloudId={this.state.forecast.Today.soundcloudId}
-          />
-        </ScrollView>
-        <View style={Styles.buttonContainer}>
-          <Button
-            style={Styles.button}
-            onPress={this.pushExtended}
-            title="Extended"
-            accessibilityLabel="Extended Forecast"
-            disabled={this.state.forecast.Extended.details.length == 0}
-          />
-          <Button
-            style={Styles.button}
-            onPress={this.pushRecreational}
-            title="Recreational"
-            accessibilityLabel="Recreational Forecast"
-            disabled={this.state.forecast.Recreational.details.length == 0}
-          />
-          <ImageButton
-            style={Styles.button}
-            onPress={this.pushWeb}
-            image="export"
-            size={ButtonHeight}
-            accessibilityLabel="Web Version"
-            disabled={!this.state.forecast.Today.uri}
-          />
-        </View>
-      </View>
-    )
+    return <HomeView
+              isRefreshing={this.state.refreshing}
+              didPressExtended={this.pushExtended}
+              didPressRecreational={this.pushRecreational}
+              didPressWeb={this.pushWeb}
+              didRequestRefresh={this.getData.bind(this)}
+              forecasts={this.state.forecast}
+            />
   }
 }
 
@@ -121,9 +97,6 @@ const ApiUrl = 'http://freyja.local:8888/api/v1/forecasts'
 
 // https://facebook.github.io/react-native/docs/appstate.html
 const AppStateActive = 'active'
-
-const Extended = "Extended"
-const Recreational = "Recreational"
 
 const EmptyForecast = {
   details: []
@@ -137,25 +110,15 @@ const EmptyState = {
     }
 }
 
-const ButtonHeight = 24 + 8 + 8
-
-const Styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    height: ButtonHeight,
-    justifyContent: 'space-between',
-  },
-  button: {
-  }
-})
-
 Fairbanks.propTypes = {
   navigator: PropTypes.object.isRequired
 }
 
+/**
+  A daily update consists of multiple forecasts: "today",
+  "extended", and "recreational".
+  @return Array of three forecasts
+*/
 function mapToForecasts(apiResponse) {
   if (apiResponse) {
     return [
@@ -188,6 +151,12 @@ function mapToRecreationalForecast(apiResponse) {
     }
 }
 
+/**
+  Maps feed data (originally from HTML) to nested representation, formatted for consumption by a SectionList.
+  Each section represents a time in the forecast (e.g., "extended" might have several days' worth).
+  @see `ForecastDetailsShape` in mixins/prop_types.
+  @return Array containing the details of a forecast
+*/
 function mapForecastToSections(nodeItems) {
   // nodeItems are sent as a list of tags (h3, then p)
   // h2 should be ignored for this UI

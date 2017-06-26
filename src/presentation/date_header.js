@@ -65,5 +65,5 @@ const Styles = StyleSheet.create({
 
 DateHeader.propTypes = {
   title: PropTypes.string,
-  style: CustomPropTypes.styleProp,
+  style: CustomPropTypes.StyleProp,
 }
