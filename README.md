@@ -1,6 +1,8 @@
 # Fairbanks
 
-Fairbanks is a personal project that provides short-term Vermont weather forecasts based on data from the Eye on the Sky forecast. This app's namesake, the Fairbanks Museum in St. Johnsbury, is the source for fairly reliable forecasts for our fickle little micro-climate.
+Fairbanks is a React Native (iOS & Android) client for fairbanks-server.
+
+This is a personal project that provides short-term Vermont weather forecasts based on data from the Eye on the Sky forecast. This app's namesake, the Fairbanks Museum in St. Johnsbury, is the source for fairly reliable forecasts for our fickle little micro-climate.
 
 ## Why?
 

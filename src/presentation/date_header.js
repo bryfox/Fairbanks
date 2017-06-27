@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import Header from './header'
 
 import Colors from '../mixins/colors'
+import Fonts from '../mixins/fonts'
 import CustomPropTypes from '../mixins/prop_types'
 
 export default class DateHeader extends Component {
@@ -57,9 +58,10 @@ function equalDates (d1, d2) {
 const Styles = StyleSheet.create({
   date: {
     color: Colors.DateHeader,
-    fontFamily: 'Lobster',
+    fontFamily: Fonts.DateHeader,
     fontSize: 18,
-    lineHeight: 24
+    // fontStyle: 'italic',
+    // lineHeight: 18,
   }
 })
 

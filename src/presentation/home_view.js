@@ -83,8 +83,9 @@ const ButtonHeight = 24 + 8 + 8
 const Styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
-    height: ButtonHeight,
+    height: ButtonHeight + 16,
     justifyContent: 'space-between',
+    padding: 8
   },
   button: {
   }

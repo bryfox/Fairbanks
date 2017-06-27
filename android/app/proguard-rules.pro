@@ -20,6 +20,9 @@
 # (unless you are using a system that supports de-obfuscate the stack traces).
 -dontobfuscate
 
+# for dotenv config: https://github.com/luggit/react-native-config
+-keep class com.mypackage.BuildConfig { *; }
+
 # React Native
 
 # Keep our interfaces so they can be used by other ProGuard rules.

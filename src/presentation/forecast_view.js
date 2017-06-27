@@ -1,14 +1,23 @@
+/**
+  Forecast View displays the full forecast with audio player (if available).
+  The first details section is treated as the primary forecast, and rendered separately.
+
+  The `details[]` prop is required, but may be empty.
+*/
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {
   Button,
+  Platform,
+  ScrollView,
+  SectionList,
   StyleSheet,
   Text,
-  ScrollView,
   View,
-  SectionList,
 } from 'react-native'
 
+import Fonts from '../mixins/fonts'
+import CustomPropTypes from '../mixins/prop_types'
 import DateHeader from '../presentation/date_header'
 import ForecastSection from '../presentation/forecast_section'
 import ForecastDetails from '../presentation/forecast_details'
@@ -41,32 +50,38 @@ export default class ForecastView extends Component {
   }
 }
 
+let headerStyle = {
+  fontSize: 36,
+}
+let summaryStyle = {
+  fontFamily: Fonts.Garamond,
+  fontSize: 24,
+}
+if (Platform.OS === 'ios') {
+  // Android renders with cropped text; padding doesn't correct. (React Native 0.45)
+  headerStyle.lineHeight = 24
+  headerStyle.paddingTop = 36 - 24
+  summaryStyle.lineHeight = 26
+}
+
 const Styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'stretch',
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff00',
     margin: 10,
   },
   firstForecast: {
     marginBottom: 10,
     marginTop: 20,
   },
-  header: {
-    fontSize: 36,
-    lineHeight: 24,
-    paddingTop: 36 - 24
-  },
-  summary: {
-    fontFamily: 'EBGaramond',
-    fontSize: 24,
-    lineHeight: 26,
-  },
+  header: headerStyle,
+  summary: summaryStyle,
 })
 
 ForecastView.propTypes = {
-  details: PropTypes.arrayOf(PropTypes.shape({title: PropTypes.string, data: PropTypes.array})).isRequired,
+  details: PropTypes.arrayOf(CustomPropTypes.ForecastDetailsProp).isRequired,
   soundcloudId: PropTypes.string
 }

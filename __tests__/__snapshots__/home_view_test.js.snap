@@ -83,8 +83,9 @@ exports[`HomeView renders links to other screens 1`] = `
     style={
       Object {
         "flexDirection": "row",
-        "height": 40,
+        "height": 56,
         "justifyContent": "space-between",
+        "padding": 8,
       }
     }
   >
