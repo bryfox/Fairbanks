@@ -18,102 +18,65 @@ exports[`HomeView renders links to other screens 1`] = `
   >
     <RCTRefreshControl />
     <View>
-      <RCTScrollView
-        contentContainerStyle={
+      <View
+        style={
           Object {
-            "alignItems": "stretch",
-            "backgroundColor": "#fff",
+            "alignItems": "center",
             "flex": 1,
-            "flexDirection": "column",
-            "justifyContent": "flex-start",
-            "margin": 10,
+            "margin": 20,
           }
         }
       >
-        <View>
-          <View
-            style={
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          disabled={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
               Object {
-                "marginBottom": 10,
-                "marginTop": 20,
-              }
-            }
-          >
-            <RCTScrollView
-              ItemSeparatorComponent={undefined}
-              data={Array []}
-              disableVirtualization={false}
-              getItem={[Function]}
-              getItemCount={[Function]}
-              horizontal={false}
-              initialNumToRender={10}
-              keyExtractor={[Function]}
-              maxToRenderPerBatch={10}
-              onContentSizeChange={[Function]}
-              onEndReachedThreshold={2}
-              onLayout={[Function]}
-              onMomentumScrollEnd={[Function]}
-              onScroll={[Function]}
-              onScrollBeginDrag={[Function]}
-              onScrollEndDrag={[Function]}
-              onViewableItemsChanged={undefined}
-              renderItem={[Function]}
-              renderScrollComponent={[Function]}
-              renderSectionHeader={[Function]}
-              scrollEnabled={false}
-              scrollEventThrottle={50}
-              sections={Array []}
-              stickyHeaderIndices={Array []}
-              stickySectionHeadersEnabled={true}
-              updateCellsBatchingPeriod={50}
-              windowSize={21}
-            >
-              <View />
-            </RCTScrollView>
-          </View>
-          <View
-            style={
+                "color": "#666",
+              },
               Object {
-                "backgroundColor": "#ffffff",
                 "flex": 1,
-                "justifyContent": "center",
-              }
+                "fontSize": 24,
+                "marginBottom": 20,
+                "marginTop": 20,
+              },
+            ]
+          }
+        >
+          Forecast Unavailable
+        </Text>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          disabled={false}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "flex": 1,
+              "textAlign": "center",
             }
-          >
-            <RCTScrollView
-              ItemSeparatorComponent={undefined}
-              data={Array []}
-              disableVirtualization={false}
-              getItem={[Function]}
-              getItemCount={[Function]}
-              horizontal={false}
-              initialNumToRender={10}
-              keyExtractor={[Function]}
-              maxToRenderPerBatch={10}
-              onContentSizeChange={[Function]}
-              onEndReachedThreshold={2}
-              onLayout={[Function]}
-              onMomentumScrollEnd={[Function]}
-              onScroll={[Function]}
-              onScrollBeginDrag={[Function]}
-              onScrollEndDrag={[Function]}
-              onViewableItemsChanged={undefined}
-              renderItem={[Function]}
-              renderScrollComponent={[Function]}
-              renderSectionHeader={[Function]}
-              scrollEnabled={true}
-              scrollEventThrottle={50}
-              sections={Array []}
-              stickyHeaderIndices={Array []}
-              stickySectionHeadersEnabled={true}
-              updateCellsBatchingPeriod={50}
-              windowSize={21}
-            >
-              <View />
-            </RCTScrollView>
-          </View>
-        </View>
-      </RCTScrollView>
+          }
+        >
+          Today’s forecast isn’t available yet.
+        </Text>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          disabled={false}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "flex": 1,
+              "textAlign": "center",
+            }
+          }
+        >
+          Check back later!
+        </Text>
+      </View>
     </View>
   </RCTScrollView>
   <View

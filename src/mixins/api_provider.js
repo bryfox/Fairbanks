@@ -26,8 +26,7 @@ export default class ApiProvider {
     return fetch(ApiUrl, {})
             .then(resp => resp.json())
             .then(json => json.data)
-            .then(data => data[data.length - 1])
   }
 }
 
-const ApiUrl = `${Config.API_ROOT}/api/v1/forecasts`
+const ApiUrl = `${Config.API_ROOT}/api/v1/forecasts/today`

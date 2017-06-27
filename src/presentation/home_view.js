@@ -6,24 +6,33 @@ import {
   ScrollView,
   StyleSheet,
   View,
+
+  Text
 } from 'react-native'
 
 import ForecastView from '../presentation/forecast_view'
+import EmptyForecastView from '../presentation/empty_forecast_view'
 import ImageButton from '../presentation/image_button'
 import CustomPropTypes from '../mixins/prop_types'
 
 export default class HomeView extends Component {
-  render() {
+  get hasNoData () {
+    return !this.props.isRefreshing && !Object.values(this.props.forecasts).some(f => f.details.length )
+  }
+
+  get forecastView () {
+    return <ForecastView details={this.props.forecasts.Today.details}
+            soundcloudId={this.props.forecasts.Today.soundcloudId} />
+  }
+
+  render () {
     let refresh = <RefreshControl refreshing={this.props.isRefreshing} onRefresh={this.props.didRequestRefresh}/>
     let { forecasts, didPressExtended, didPressRecreational, didPressWeb } = this.props
 
     return (
       <View style={{flex:1}}>
         <ScrollView refreshControl={refresh}>
-          <ForecastView
-                        details={forecasts.Today.details}
-                        soundcloudId={forecasts.Today.soundcloudId}
-          />
+          {this.hasNoData ? <EmptyForecastView /> : this.forecastView}
         </ScrollView>
         <View style={Styles.buttonContainer}>
           <Button

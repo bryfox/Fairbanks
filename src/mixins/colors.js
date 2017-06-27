@@ -18,4 +18,5 @@ export default {
   NativeBlue: Platform.select({ios: IOS_BLUE, android: ANDROID_BLUE}),
   NavigationBackground: Platform.select({ios: IOS_NAV_BG, android: ANDROID_NAV_BG}),
   DateHeader: '#ccc',
+  Header: '#666'
 }
