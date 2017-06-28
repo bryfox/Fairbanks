@@ -55,7 +55,10 @@ export default class Fairbanks extends Component {
       .then(mapToForecasts)
       .then(this.setForecastState)
       .then(() => this.setState({refreshing: false}))
-      .catch(console.error)
+      .catch(err => {
+        console.warn(err)
+        this.setState(EmptyState)
+      })
   }
 
   setForecastState([today, extended, recreational]) {
