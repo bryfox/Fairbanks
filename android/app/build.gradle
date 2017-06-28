@@ -92,6 +92,20 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
+// macOS only
+def getPassword(String keyChain) {
+    def stdout = new ByteArrayOutputStream()
+    def stderr = new ByteArrayOutputStream()
+    exec {
+        commandLine 'security', '-q', 'find-generic-password', '-a', 'fairbanks', '-s', keyChain, '-w'
+        standardOutput = stdout
+        errorOutput = stderr
+        ignoreExitValue true
+    }
+    //noinspection GroovyAssignabilityCheck
+    stdout.toString().trim()
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
@@ -106,6 +120,16 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
     }
+    signingConfigs {
+        release {
+            if (project.hasProperty('FAIRBANKS_RELEASE_STORE_FILE')) {
+                storeFile file(FAIRBANKS_RELEASE_STORE_FILE)
+                storePassword getPassword("fairbanks-android-keystore")
+                keyAlias FAIRBANKS_RELEASE_KEY_ALIAS
+                keyPassword getPassword("fairbanks-android-signing-key")
+            }
+        }
+    }
     splits {
         abi {
             reset()
@@ -118,6 +142,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release

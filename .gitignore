@@ -1,6 +1,9 @@
 # Config file for react-native-config
 .env
 
+# java keystore
+*.jks
+
 # OSX
 #
 .DS_Store
