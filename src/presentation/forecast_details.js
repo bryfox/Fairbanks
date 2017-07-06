@@ -46,6 +46,8 @@ if (Platform.OS === 'ios') {
   // Android renders with cropped text; padding doesn't correct. (React Native 0.45)
   headerStyle.lineHeight = 16
   descriptionStyle.lineHeight = 22
+  // iOS needs background for floating section headers
+  headerStyle.backgroundColor = '#fff'
 }
 
 const Styles = StyleSheet.create({
