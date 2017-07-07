@@ -4,6 +4,8 @@
 # java keystore
 *.jks
 
+SoundCloudAPIKeys*
+
 # OSX
 #
 .DS_Store
