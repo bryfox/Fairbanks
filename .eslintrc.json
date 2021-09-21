@@ -10,5 +10,10 @@
   "rules": {
     "semi": [1, "never"],
     "max-len": [1, 120]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
