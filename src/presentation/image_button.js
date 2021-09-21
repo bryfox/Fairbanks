@@ -12,7 +12,6 @@ import {
 
 import Icon from 'react-native-vector-icons/Entypo'
 import Colors from '../mixins/colors'
-import ColorPropType from 'ColorPropType'
 
 export default class ImageButton extends Button {
   render () {

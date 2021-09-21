@@ -4,8 +4,8 @@ import {
   Linking,
   Platform,
   View,
-  WebView,
 } from 'react-native'
+import { WebView } from 'react-native-webview'
 
 import Header from '../presentation/header'
 import Colors from '../mixins/colors'

@@ -1,6 +1,9 @@
 import Config from 'react-native-config'
 
 export default class ApiProvider {
+  constructor() {
+      this.controller = new AbortController()
+  }
 
   /**
     Note: `publication_date` has a constant format in this version of the API;
@@ -23,9 +26,13 @@ export default class ApiProvider {
   getDailyUpdate () {
     console.log('[ApiProvider] Fetching latest data from', ApiUrl)
     headers = { 'Content-Type': 'application/json' }
-    return fetch(ApiUrl, {})
+    return fetch(ApiUrl, { signal: this.controller.signal })
             .then(resp => resp.json())
             .then(json => json.data)
+  }
+
+  cancel() {
+    this.controller.abort()
   }
 }
 

@@ -22,4 +22,4 @@ The `__tests__` directory makes use of Jest and snapshot testing for component u
 
 Copy `.env.example` to `.env` and (optionally) change the value of `API_ROOT` as needed.
 
-Dependencies: see "Building Projects with Native Code" at [Getting Started](https://facebook.github.io/react-native/docs/getting-started.html). This app requires native tools, so the Quick Start won't work.
+Dependencies: see the React Native CLI quickstarts in the [React Native docs](https://reactnative.dev/docs/environment-setup). This app requires native tools, so the Quick Start won't work.

@@ -16,6 +16,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native'
+import { Navigation } from 'react-native-navigation'
 
 import ApiProvider from '../mixins/api_provider'
 import HomeView from '../presentation/home_view'
@@ -30,12 +31,13 @@ export default class Fairbanks extends Component {
   }
 
   componentDidMount () {
-    AppState.addEventListener('change', this.onAppStateChange)
+    this.appStateListener = AppState.addEventListener('change', this.onAppStateChange)
     this.getData()
   }
 
   componentWillUnmount () {
-    AppState.removeEventListener('change', this.onAppStateChange)
+    this.appStateListener.remove()
+    this.apiProvider.cancel()
   }
 
   // Does not fire first time
@@ -44,9 +46,6 @@ export default class Fairbanks extends Component {
       this.getData()
     }
   }
-
-  // TODO: cancel xhr
-  // componentWillUnmount
 
   getData () {
     if (this.state.refreshing) { return }
@@ -73,12 +72,21 @@ export default class Fairbanks extends Component {
   }
 
   pushVC(type) {
-    this.props.navigator.push({
-      screen: `fairbanks.${type}`,
-      title: `${type} Forecast`,
-      passProps: this.state.forecast[type],
-      backButtonTitle: 'Today'
-    })
+    console.info("Push extended")
+    Navigation.push(this.props.componentId,
+      {
+        component: {
+          name: `fairbanks.${type}`,
+          passProps: this.state.forecast[type],
+          options: {
+            topBar: {
+              title: { text: `${type} Forecast` },
+              backButtonTitle: 'Today'
+            }
+          }
+        }
+      }
+    )
   }
 
   render() {
@@ -109,7 +117,7 @@ const EmptyState = {
 }
 
 Fairbanks.propTypes = {
-  navigator: PropTypes.object.isRequired
+  componentId: PropTypes.string
 }
 
 /**
